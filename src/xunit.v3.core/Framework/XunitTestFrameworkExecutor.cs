@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit.Internal;
 using Xunit.Sdk;
@@ -34,6 +35,7 @@ public class XunitTestFrameworkExecutor(IXunitTestAssembly testAssembly) :
 	public override async ValueTask RunTestCases(
 		IReadOnlyCollection<IXunitTestCase> testCases,
 		IMessageSink executionMessageSink,
-		ITestFrameworkExecutionOptions executionOptions) =>
-			await XunitTestAssemblyRunner.Instance.Run(TestAssembly, testCases, executionMessageSink, executionOptions);
+		ITestFrameworkExecutionOptions executionOptions,
+		CancellationToken cancellationToken) =>
+			await XunitTestAssemblyRunner.Instance.Run(TestAssembly, testCases, executionMessageSink, executionOptions, cancellationToken);
 }
